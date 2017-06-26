@@ -6,11 +6,13 @@ public class fireballScript : MonoBehaviour {
 
     bool moving = false;
     Vector3 target;
+    GameObject explosion;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        this.explosion = Resources.Load("explosion") as GameObject;
+        
+    }
 
     void setTarget(Vector3 target)
     {
@@ -25,7 +27,8 @@ public class fireballScript : MonoBehaviour {
         if (transform.position.Equals(target))
         {
             this.moving = false;
-            Debug.Log("Boom!");
+            GameObject explosion = Instantiate(this.explosion) as GameObject;
+            explosion.SendMessage("activate", this.target);
             Destroy(this.gameObject);
         }
 
